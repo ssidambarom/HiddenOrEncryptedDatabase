@@ -1,9 +1,5 @@
-using System.Collections.Generic;
-using Azure.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Data.SqlClient;
-using Microsoft.Data.SqlClient.AlwaysEncrypted.AzureKeyVaultProvider;
 
 namespace WorkWithEncryptedDatabase
 {
@@ -18,17 +14,6 @@ namespace WorkWithEncryptedDatabase
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((context, config) =>
                 {
-                    var builtConfig = config.Build();
-
-                    var credential = new InteractiveBrowserCredential();
-                    var azureKeyVaultProvider = new SqlColumnEncryptionAzureKeyVaultProvider(credential);
-
-                    var providers = new Dictionary<string, SqlColumnEncryptionKeyStoreProvider>
-                    {
-                        { SqlColumnEncryptionAzureKeyVaultProvider.ProviderName, azureKeyVaultProvider }
-                    };
-
-                    SqlConnection.RegisterColumnEncryptionKeyStoreProviders(providers);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
