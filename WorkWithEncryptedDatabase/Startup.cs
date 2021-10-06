@@ -1,3 +1,4 @@
+using Azure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Data.SqlClient;
@@ -24,13 +25,11 @@ namespace WorkWithEncryptedDatabase
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var credential = new Azure.Identity.InteractiveBrowserCredential();
-            var azureKeyVaultProvider = new SqlColumnEncryptionAzureKeyVaultProvider(credential);
-
+            var azureKeyVaultProvider = new SqlColumnEncryptionAzureKeyVaultProvider(new DefaultAzureCredential());
             var providers = new Dictionary<string, SqlColumnEncryptionKeyStoreProvider>
-                    {
-                        { SqlColumnEncryptionAzureKeyVaultProvider.ProviderName, azureKeyVaultProvider }
-                    };
+            {
+                { SqlColumnEncryptionAzureKeyVaultProvider.ProviderName, azureKeyVaultProvider }
+            };
 
             SqlConnection.RegisterColumnEncryptionKeyStoreProviders(providers);
 
