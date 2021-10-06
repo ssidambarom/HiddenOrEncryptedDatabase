@@ -31,7 +31,7 @@ namespace WorkWithEncryptedDatabase.Controllers
         public IActionResult Post(PostCustomerRequest request)
         {
             if (request is null) return BadRequest("Request cannot be null");
-            _context.Add(request);
+            _context.Customers.Add(request);
             _context.SaveChanges();
             return Created(Url.RouteUrl(ControllerContext), request);
         }

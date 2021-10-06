@@ -9,7 +9,7 @@ namespace WorkWithEncryptedDatabase.DbContexts
         public EncryptedDbContext([NotNullAttribute] DbContextOptions options)
             : base(options)
         {
-            
+
         }
 
         public DbSet<Customer> Customers { get; set; }
@@ -25,8 +25,8 @@ namespace WorkWithEncryptedDatabase.DbContexts
 
             builder.Entity<Customer>(b =>
             {
-                b.ToTable("CustomersBis");
-                b.HasKey(_ => _.Id);
+                b.ToTable("Customers").HasKey(s => s.Id);
+                b.Property(s => s.FirstName).HasColumnType("varchar(50)");
             });
         }
 
