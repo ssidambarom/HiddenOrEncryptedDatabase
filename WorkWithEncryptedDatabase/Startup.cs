@@ -38,6 +38,7 @@ namespace WorkWithEncryptedDatabase
 
             services.AddDbContext<EncryptedDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
