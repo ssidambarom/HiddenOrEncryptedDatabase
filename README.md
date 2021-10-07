@@ -37,7 +37,7 @@ CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (PAD_INDEX = OFF
   },
   "ClientId":"{ClientId}",
   "ClientSecret":"{ClientSecret}",
-  "TenantId:"{TenantId}"
+  "TenantId":"{TenantId}"
 }
 ```
 
