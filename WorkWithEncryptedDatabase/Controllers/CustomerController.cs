@@ -1,5 +1,7 @@
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using WorkWithEncryptedDatabase.DbContexts;
 
@@ -21,19 +23,36 @@ namespace WorkWithEncryptedDatabase.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var customer = _context.Customers.FirstOrDefault(_ => _.Id == id) ?? default(Customer);
+            var customer = await _context.Customers.FirstOrDefaultAsync(_ => _.Id == id) ?? default(Customer);
             return Ok(customer);
         }
 
         [HttpPost]
-        public IActionResult Post(PostCustomerRequest request)
+        public async Task<IActionResult> Post(PostCustomerRequest request)
         {
             if (request is null) return BadRequest("Request cannot be null");
             _context.Customers.Add(request);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Created(Url.RouteUrl(ControllerContext), request);
         }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Put(int id, PutCustomerRequest request)
+        {
+            if (request is null) return BadRequest("Request cannot be null");
+
+            var customer = await _context.Customers.FirstOrDefaultAsync(_ => _.Id == id);
+            if (customer == null) return NotFound();
+
+            customer.FirstName = request.FirstName;
+            customer.LastName = request.LastName;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(customer);
+        }
+
     }
 }
