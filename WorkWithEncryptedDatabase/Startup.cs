@@ -25,7 +25,10 @@ namespace WorkWithEncryptedDatabase
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var azureKeyVaultProvider = new SqlColumnEncryptionAzureKeyVaultProvider(new DefaultAzureCredential());
+            var clientId = Configuration["clientId"];
+            var clientSecret = Configuration["clientSecret"];
+            var tenantId = Configuration["tenantId"];
+            var azureKeyVaultProvider = new SqlColumnEncryptionAzureKeyVaultProvider(new ClientSecretCredential(tenantId, clientId, clientSecret));
             var providers = new Dictionary<string, SqlColumnEncryptionKeyStoreProvider>
             {
                 { SqlColumnEncryptionAzureKeyVaultProvider.ProviderName, azureKeyVaultProvider }
