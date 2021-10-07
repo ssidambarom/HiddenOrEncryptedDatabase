@@ -23,7 +23,7 @@ CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (PAD_INDEX = OFF
 
 4.3- On Run Settings, click on Next.
 
-4.4- On Summarize, click on Finish. The Column Master Key and the Column Encryption Key will be created and stored on Azure KeyVault.
+4.4- On Summarize, click on Finish. The Column Master Key and the Column Encryption Key will be created. Only the Column Master Key will be stored on Azure KeyVault.
 
 5- Create an app registration and generate Client Secret.
 
