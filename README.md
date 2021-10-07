@@ -47,6 +47,7 @@ builder.Entity<Customer>(b =>
 {
     b.ToTable("Customers").HasKey(s => s.Id);
     b.Property(s => s.FirstName).HasColumnType("nvarchar(50)");
+    b.Property(s => s.LastName).HasColumnType("nvarchar(50)");
 });
 ```
 
